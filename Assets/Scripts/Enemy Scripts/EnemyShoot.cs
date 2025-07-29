@@ -79,13 +79,6 @@ public class EnemyShoot : MonoBehaviour
             IsBallFlying = false;
             currentBall.GetComponent<Rigidbody>().isKinematic = false;
 
-            if (isBallReadyToScore)
-            {
-                Debug.Log($"Ball scored by {currentBallType} ball! Scoring points...");
-                int points = currentBallType == BallType.Orange ? 2 : 3;
-                scoreManager.AddScore(points);
-            }
-
             isBallReadyToScore = false;
             StartCoroutine(ResetAndSpawnNewBall());
         }
@@ -147,14 +140,16 @@ public class EnemyShoot : MonoBehaviour
         currentBall.GetComponent<Rigidbody>().isKinematic = false;
     }
 
-    public Transform GetCurrentBall() => currentBall;
+    public GameObject GetCurrentBall()
+    {
+        return currentBall.gameObject;
+    }
 
     public BallType GetCurrentBallType() => currentBallType;
 
     public bool IsBallReadyToScore() => isBallReadyToScore;
 
     public void SetBallReadyToScore(bool ready) => isBallReadyToScore = ready;
-
     public enum BallType
     {
         Orange,
